@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ko'nikmalar — Saidbek Kamolov</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="/static/css/base.css">
+
+<style>
+.skills-header{padding:80px 2rem 0;max-width:1100px;margin:0 auto}
+
+.skills-filter{
+  display:flex;gap:0.75rem;flex-wrap:wrap;
+  margin-bottom:2.5rem;
+}
+.sf-btn{
+  display:flex;align-items:center;gap:6px;
+  font-family:'DM Mono',monospace;font-size:12px;
+  padding:7px 18px;border-radius:100px;
+  border:1px solid var(--border);
+  background:transparent;color:var(--muted);
+  cursor:pointer;transition:all 0.3s;
+}
+.sf-btn svg{width:13px;height:13px}
+.sf-btn:hover,.sf-btn.active{
+  background:var(--c1);color:var(--bg);border-color:var(--c1);
+}
+
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+  gap:14px;
+  padding:0 2rem 80px;
+  max-width:1100px;margin:0 auto;
+}
+.skill-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:1.5rem 1rem;
+  text-align:center;
+  transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative;overflow:hidden;cursor:default;
+}
+.skill-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at center,var(--gc,rgba(0,255,200,0.12)) 0%,transparent 70%);
+  opacity:0;transition:opacity 0.3s;
+}
+.skill-card:hover{
+  transform:translateY(-8px) scale(1.02);
+  border-color:var(--gb,rgba(0,255,200,0.3));
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+.skill-card:hover::before{opacity:1}
+
+.sk-icon{
+  width:48px;height:48px;border-radius:14px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 0.75rem;
+  background:rgba(255,255,255,0.03);
+  transition:border-color 0.3s;
+}
+.sk-icon svg{width:24px;height:24px}
+.skill-card:hover .sk-icon{border-color:var(--gb,rgba(0,255,200,0.3))}
+.skill-nm{font-size:13px;font-weight:700;margin-bottom:3px}
+.skill-cat-lbl{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase}
+.skill-bar{
+  margin-top:10px;height:3px;border-radius:100px;
+  background:rgba(255,255,255,0.07);overflow:hidden;
+}
+.skill-bar-fill{
+  height:100%;border-radius:100px;
+  transition:width 1s ease;
+}
+.skill-pct{
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--muted);margin-top:5px;
+}
+
+/* COLOR THEMES PER CATEGORY */
+.cat-frontend .sk-icon svg{color:var(--c1)}
+.cat-frontend{--gc:rgba(0,255,200,0.08);--gb:rgba(0,255,200,0.3)}
+.cat-frontend .skill-bar-fill{background:var(--c1)}
+
+.cat-backend .sk-icon svg{color:var(--c2)}
+.cat-backend{--gc:rgba(123,94,167,0.08);--gb:rgba(123,94,167,0.3)}
+.cat-backend .skill-bar-fill{background:var(--c2)}
+
+.cat-design .sk-icon svg{color:var(--c3)}
+.cat-design{--gc:rgba(255,79,110,0.08);--gb:rgba(255,79,110,0.3)}
+.cat-design .skill-bar-fill{background:var(--c3)}
+
+.cat-tools .sk-icon svg{color:var(--c4)}
+.cat-tools{--gc:rgba(245,197,66,0.08);--gb:rgba(245,197,66,0.3)}
+.cat-tools .skill-bar-fill{background:var(--c4)}
+
+@media(max-width:480px){
+  .skills-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+}
+</style>
+
+</head>
+<body>
+
+<!-- CURSOR (desktop only) -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- BG ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="/static/assets/images/avatar.jpg" alt="SK" class="nav-avatar" onerror="this.style.display='none';document.querySelector('.nav-logo-text').style.display='block'">
+    <span class="nav-logo-text" style="display:none">SK</span>
+    <span class="nav-logo-name">Saidbek<span>.</span></span>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="active">
+      <i data-lucide="home" class="nav-icon"></i><span>Bosh sahifa</span>
+    </a></li>
+    <li><a href="/about" class="">
+      <i data-lucide="user" class="nav-icon"></i><span>Men haqimda</span>
+    </a></li>
+    <li><a href="/skills" class="">
+      <i data-lucide="zap" class="nav-icon"></i><span>Ko'nikmalar</span>
+    </a></li>
+    <li><a href="/projects" class="">
+      <i data-lucide="folder-open" class="nav-icon"></i><span>Loyihalar</span>
+    </a></li>
+    <li><a href="/contact" class="">
+      <i data-lucide="mail" class="nav-icon"></i><span>Aloqa</span>
+    </a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="nav-avail">
+      <div class="nav-avail-dot"></div>
+      <span>Ishlashga tayyor</span>
+    </div>
+    <a href="/contact" class="nav-hire">Bog'lanish</a>
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mm-inner">
+    <div class="mm-header">
+      <img src="/static/assets/images/avatar.jpg" alt="SK" class="mm-avatar" onerror="this.style.display='none'">
+      <div>
+        <div class="mm-name">Saidbek Kamolov</div>
+        <div class="mm-role">Frontend Dev & Designer</div>
+      </div>
+    </div>
+    <nav class="mm-nav">
+      <a href="/" class="mm-link active">
+        <i data-lucide="home"></i> Bosh sahifa
+      </a>
+      <a href="/about" class="mm-link ">
+        <i data-lucide="user"></i> Men haqimda
+      </a>
+      <a href="/skills" class="mm-link ">
+        <i data-lucide="zap"></i> Ko'nikmalar
+      </a>
+      <a href="/projects" class="mm-link ">
+        <i data-lucide="folder-open"></i> Loyihalar
+      </a>
+      <a href="/contact" class="mm-link ">
+        <i data-lucide="mail"></i> Aloqa
+      </a>
+    </nav>
+    <div class="mm-footer">
+      <a href="https://t.me/kamolovsaidbek" target="_blank" class="mm-social">
+        <i data-lucide="send"></i>
+      </a>
+      <a href="https://github.com/saidbek18" target="_blank" class="mm-social">
+        <i data-lucide="github"></i>
+      </a>
+      <a href="mailto:kamolobsaid@gmail.com" class="mm-social">
+        <i data-lucide="mail"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="mm-overlay" id="mmOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- MAIN CONTENT -->
+<main id="main-content">
+
+<div class="skills-header">
+  <div class="sec-label">// 02 — SKILLS</div>
+  <h1 class="sec-title">Ko'nikmalar</h1>
+
+  <div class="skills-filter">
+    <button class="sf-btn active" data-cat="all">
+      <i data-lucide="layout-grid"></i> Barchasi
+    </button>
+    <button class="sf-btn" data-cat="frontend">
+      <i data-lucide="monitor"></i> Frontend
+    </button>
+    <button class="sf-btn" data-cat="backend">
+      <i data-lucide="server"></i> Backend
+    </button>
+    <button class="sf-btn" data-cat="design">
+      <i data-lucide="pen-tool"></i> Dizayn
+    </button>
+    <button class="sf-btn" data-cat="tools">
+      <i data-lucide="wrench"></i> Toollar
+    </button>
+  </div>
+</div>
+
+<div class="skills-grid" id="skillsGrid">
+  
+  <div class="skill-card cat-frontend fade-in" data-cat="frontend" style="transition-delay:0.0s">
+    <div class="sk-icon">
+      <i data-lucide="html5"></i>
+    </div>
+    <div class="skill-nm">HTML5</div>
+    <div class="skill-cat-lbl">frontend</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="95" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">95%</div>
+  </div>
+  
+  <div class="skill-card cat-frontend fade-in" data-cat="frontend" style="transition-delay:0.04s">
+    <div class="sk-icon">
+      <i data-lucide="css3"></i>
+    </div>
+    <div class="skill-nm">CSS3</div>
+    <div class="skill-cat-lbl">frontend</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="90" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">90%</div>
+  </div>
+  
+  <div class="skill-card cat-frontend fade-in" data-cat="frontend" style="transition-delay:0.08s">
+    <div class="sk-icon">
+      <i data-lucide="square-js"></i>
+    </div>
+    <div class="skill-nm">JavaScript</div>
+    <div class="skill-cat-lbl">frontend</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="80" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">80%</div>
+  </div>
+  
+  <div class="skill-card cat-frontend fade-in" data-cat="frontend" style="transition-delay:0.12s">
+    <div class="sk-icon">
+      <i data-lucide="react"></i>
+    </div>
+    <div class="skill-nm">React</div>
+    <div class="skill-cat-lbl">frontend</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="75" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">75%</div>
+  </div>
+  
+  <div class="skill-card cat-backend fade-in" data-cat="backend" style="transition-delay:0.16s">
+    <div class="sk-icon">
+      <i data-lucide="python"></i>
+    </div>
+    <div class="skill-nm">Python</div>
+    <div class="skill-cat-lbl">backend</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="85" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">85%</div>
+  </div>
+  
+  <div class="skill-card cat-backend fade-in" data-cat="backend" style="transition-delay:0.2s">
+    <div class="sk-icon">
+      <i data-lucide="flask-conical"></i>
+    </div>
+    <div class="skill-nm">Flask</div>
+    <div class="skill-cat-lbl">backend</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="75" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">75%</div>
+  </div>
+  
+  <div class="skill-card cat-backend fade-in" data-cat="backend" style="transition-delay:0.24s">
+    <div class="sk-icon">
+      <i data-lucide="bot"></i>
+    </div>
+    <div class="skill-nm">Telegram Bot</div>
+    <div class="skill-cat-lbl">backend</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="90" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">90%</div>
+  </div>
+  
+  <div class="skill-card cat-backend fade-in" data-cat="backend" style="transition-delay:0.28s">
+    <div class="sk-icon">
+      <i data-lucide="database"></i>
+    </div>
+    <div class="skill-nm">SQLite</div>
+    <div class="skill-cat-lbl">backend</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="70" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">70%</div>
+  </div>
+  
+  <div class="skill-card cat-design fade-in" data-cat="design" style="transition-delay:0.32s">
+    <div class="sk-icon">
+      <i data-lucide="figma"></i>
+    </div>
+    <div class="skill-nm">Figma</div>
+    <div class="skill-cat-lbl">design</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="85" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">85%</div>
+  </div>
+  
+  <div class="skill-card cat-design fade-in" data-cat="design" style="transition-delay:0.36s">
+    <div class="sk-icon">
+      <i data-lucide="image"></i>
+    </div>
+    <div class="skill-nm">Photoshop</div>
+    <div class="skill-cat-lbl">design</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="80" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">80%</div>
+  </div>
+  
+  <div class="skill-card cat-design fade-in" data-cat="design" style="transition-delay:0.4s">
+    <div class="sk-icon">
+      <i data-lucide="pen-tool"></i>
+    </div>
+    <div class="skill-nm">Illustrator</div>
+    <div class="skill-cat-lbl">design</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="75" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">75%</div>
+  </div>
+  
+  <div class="skill-card cat-design fade-in" data-cat="design" style="transition-delay:0.44s">
+    <div class="sk-icon">
+      <i data-lucide="box"></i>
+    </div>
+    <div class="skill-nm">Blender</div>
+    <div class="skill-cat-lbl">design</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="65" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">65%</div>
+  </div>
+  
+  <div class="skill-card cat-design fade-in" data-cat="design" style="transition-delay:0.48s">
+    <div class="sk-icon">
+      <i data-lucide="layers"></i>
+    </div>
+    <div class="skill-nm">Canva</div>
+    <div class="skill-cat-lbl">design</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="90" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">90%</div>
+  </div>
+  
+  <div class="skill-card cat-tools fade-in" data-cat="tools" style="transition-delay:0.52s">
+    <div class="sk-icon">
+      <i data-lucide="github"></i>
+    </div>
+    <div class="skill-nm">GitHub</div>
+    <div class="skill-cat-lbl">tools</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="80" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">80%</div>
+  </div>
+  
+  <div class="skill-card cat-tools fade-in" data-cat="tools" style="transition-delay:0.56s">
+    <div class="sk-icon">
+      <i data-lucide="code-2"></i>
+    </div>
+    <div class="skill-nm">VS Code</div>
+    <div class="skill-cat-lbl">tools</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="95" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">95%</div>
+  </div>
+  
+  <div class="skill-card cat-tools fade-in" data-cat="tools" style="transition-delay:0.6s">
+    <div class="sk-icon">
+      <i data-lucide="git-branch"></i>
+    </div>
+    <div class="skill-nm">Git</div>
+    <div class="skill-cat-lbl">tools</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-w="78" style="width:0%"></div>
+    </div>
+    <div class="skill-pct">78%</div>
+  </div>
+  
+</div>
+
+</main>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> HTML &amp; CSS</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> JavaScript</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> React</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Python</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Flask</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Telegram Bot</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Figma</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Photoshop</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Illustrator</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Blender 3D</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Canva</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> GitHub</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> VS Code</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> SQLite</div>
+    
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> HTML &amp; CSS</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> JavaScript</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> React</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Python</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Flask</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Telegram Bot</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Figma</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Photoshop</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Illustrator</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Blender 3D</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Canva</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> GitHub</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> VS Code</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> SQLite</div>
+    
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-left">
+    <div class="foot-logo">SK<span>.</span>dev</div>
+    <div class="foot-copy">© 2024 Saidbek Kamolov</div>
+  </div>
+  <div class="foot-links">
+    <a href="https://github.com/saidbek18" target="_blank">
+      <i data-lucide="github"></i>
+    </a>
+    <a href="https://t.me/kamolovsaidbek" target="_blank">
+      <i data-lucide="send"></i>
+    </a>
+    <a href="mailto:kamolobsaid@gmail.com">
+      <i data-lucide="mail"></i>
+    </a>
+  </div>
+</footer>
+
+<!-- ======== MUSIC PLAYER ======== -->
+<div id="music-fab">
+  <div id="music-panel">
+    <div class="mp-header">
+      <span class="mp-header-label">NOW PLAYING</span>
+      <button class="mp-close" onclick="toggleMusicPanel()">
+        <i data-lucide="x" style="width:16px;height:16px"></i>
+      </button>
+    </div>
+
+    <!-- DISC + AVATAR -->
+    <div class="mp-disc-wrap">
+      <div class="mp-disc" id="mpDisc">
+        <!-- Vinyl grooves -->
+        <div class="vinyl-groove g1"></div>
+        <div class="vinyl-groove g2"></div>
+        <div class="vinyl-groove g3"></div>
+        <!-- Avatar in center -->
+        <div class="mp-disc-center">
+          <img src="/static/assets/images/avatar.jpg" alt="SK" id="mpDiscImg" onerror="this.style.display='none'">
+          <div class="mp-disc-fallback" id="mpDiscFallback">SK</div>
+        </div>
+      </div>
+      <div class="mp-track-info-main">
+        <div class="mp-title" id="mpTitle">Yuklanmoqda...</div>
+        <div class="mp-artist" id="mpArtist">—</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="mp-progress">
+      <div class="mp-bar" id="mpBar">
+        <div class="mp-bar-fill" id="mpFill"></div>
+      </div>
+      <div class="mp-times">
+        <span id="mpCur">0:00</span>
+        <span id="mpDur">0:00</span>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="mp-controls">
+      <button class="mp-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Shuffle">
+        <i data-lucide="shuffle" style="width:16px;height:16px"></i>
+      </button>
+      <button class="mp-btn" onclick="prevTrack()" title="Prev">
+        <i data-lucide="skip-back" style="width:18px;height:18px"></i>
+      </button>
+      <button class="mp-play" id="mpPlayBtn" onclick="togglePlay()">
+        <i data-lucide="play" id="playIcon" style="width:22px;height:22px"></i>
+      </button>
+      <button class="mp-btn" onclick="nextTrack()" title="Next">
+        <i data-lucide="skip-forward" style="width:18px;height:18px"></i>
+      </button>
+      <button class="mp-btn" id="repeatBtn" onclick="toggleRepeat()" title="Repeat">
+        <i data-lucide="repeat" style="width:16px;height:16px"></i>
+      </button>
+    </div>
+
+    <!-- VOLUME -->
+    <div class="mp-vol">
+      <i data-lucide="volume-1" style="width:14px;height:14px;color:var(--muted)"></i>
+      <input type="range" min="0" max="1" step="0.01" value="0.7" id="volSlider" oninput="setVolume(this.value)">
+      <i data-lucide="volume-2" style="width:14px;height:14px;color:var(--muted)"></i>
+    </div>
+
+    <!-- TRACK LIST -->
+    <div class="mp-tracks" id="mpTracks">
+      <div class="mp-tracks-loading">
+        <i data-lucide="loader" style="width:16px;height:16px;animation:spin 1s linear infinite"></i>
+        Musiqalar yuklanmoqda...
+      </div>
+    </div>
+  </div>
+
+  <!-- FAB BUTTON -->
+  <button id="music-toggle" onclick="toggleMusicPanel()" title="Musiqa Player">
+    <div class="vinyl-fab" id="vinylFab">
+      <div class="vinyl-fab-grooves"></div>
+      <div class="vinyl-fab-center">
+        <img src="/static/assets/images/avatar.jpg" alt="SK" onerror="this.style.display='none';document.querySelector('.vinyl-fab-initials').style.display='flex'">
+        <div class="vinyl-fab-initials">SK</div>
+      </div>
+    </div>
+  </button>
+</div>
+
+<script src="/static/js/base.js"></script>
+
+<script>
+// Filter buttons
+document.querySelectorAll('.sf-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.sf-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const cat = this.dataset.cat;
+    document.querySelectorAll('.skill-card').forEach(card=>{
+      if(cat==='all' || card.dataset.cat===cat){
+        card.style.display='';
+      } else {
+        card.style.display='none';
+      }
+    });
+    lucide.createIcons();
+  });
+});
+
+// Animate bars when visible
+const barObserver = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const fill = e.target.querySelector('.skill-bar-fill');
+      if(fill) fill.style.width = fill.dataset.w + '%';
+    }
+  });
+},{threshold:0.2});
+document.querySelectorAll('.skill-card').forEach(el=>barObserver.observe(el));
+</script>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>

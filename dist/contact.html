@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aloqa — Saidbek Kamolov</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="/static/css/base.css">
+
+<style>
+.contact-wrap{
+  max-width:1100px;margin:0 auto;
+  padding:80px 2rem;
+}
+.contact-hero-text{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(32px,5vw,60px);
+  line-height:1.2;margin-bottom:3rem;
+  max-width:700px;
+}
+.contact-hero-text em{color:var(--c1);font-style:normal}
+
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1rem;margin-bottom:3rem;
+}
+.cc{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+  text-decoration:none;color:var(--text);
+  transition:all 0.35s;position:relative;overflow:hidden;
+}
+.cc::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--cc-color,var(--c1)),transparent);
+  opacity:0;transition:opacity 0.35s;
+}
+.cc:hover{
+  border-color:var(--cc-color,var(--c1));
+  transform:translateY(-4px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
+}
+.cc:hover::before{opacity:0.06}
+.cc-icon{
+  width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;flex-shrink:0;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  position:relative;z-index:1;
+}
+.cc-icon svg{width:24px;height:24px}
+.cc-info{position:relative;z-index:1}
+.cc-type{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted);margin-bottom:4px;letter-spacing:1px;
+}
+.cc-val{font-size:14px;font-weight:600;word-break:break-all}
+.cc.wide{grid-column:1 / -1}
+
+/* CTA BOX */
+.contact-cta{
+  text-align:center;padding:4rem 2rem;
+  border:1px solid var(--border);border-radius:28px;
+  background:linear-gradient(135deg,rgba(0,255,200,0.04),rgba(123,94,167,0.04));
+  position:relative;overflow:hidden;
+}
+.contact-cta::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(0,255,200,0.06),transparent 60%);
+}
+.contact-cta h3{
+  font-size:clamp(24px,3.5vw,44px);font-weight:800;
+  letter-spacing:-2px;margin-bottom:1rem;
+  position:relative;z-index:1;
+}
+.contact-cta p{color:var(--muted);font-size:15px;margin-bottom:2rem;position:relative;z-index:1}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+@media(max-width:600px){
+  .contact-grid{grid-template-columns:1fr}
+  .cc.wide{grid-column:1}
+}
+</style>
+
+</head>
+<body>
+
+<!-- CURSOR (desktop only) -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- BG ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="/static/assets/images/avatar.jpg" alt="SK" class="nav-avatar" onerror="this.style.display='none';document.querySelector('.nav-logo-text').style.display='block'">
+    <span class="nav-logo-text" style="display:none">SK</span>
+    <span class="nav-logo-name">Saidbek<span>.</span></span>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="active">
+      <i data-lucide="home" class="nav-icon"></i><span>Bosh sahifa</span>
+    </a></li>
+    <li><a href="/about" class="">
+      <i data-lucide="user" class="nav-icon"></i><span>Men haqimda</span>
+    </a></li>
+    <li><a href="/skills" class="">
+      <i data-lucide="zap" class="nav-icon"></i><span>Ko'nikmalar</span>
+    </a></li>
+    <li><a href="/projects" class="">
+      <i data-lucide="folder-open" class="nav-icon"></i><span>Loyihalar</span>
+    </a></li>
+    <li><a href="/contact" class="">
+      <i data-lucide="mail" class="nav-icon"></i><span>Aloqa</span>
+    </a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="nav-avail">
+      <div class="nav-avail-dot"></div>
+      <span>Ishlashga tayyor</span>
+    </div>
+    <a href="/contact" class="nav-hire">Bog'lanish</a>
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mm-inner">
+    <div class="mm-header">
+      <img src="/static/assets/images/avatar.jpg" alt="SK" class="mm-avatar" onerror="this.style.display='none'">
+      <div>
+        <div class="mm-name">Saidbek Kamolov</div>
+        <div class="mm-role">Frontend Dev & Designer</div>
+      </div>
+    </div>
+    <nav class="mm-nav">
+      <a href="/" class="mm-link active">
+        <i data-lucide="home"></i> Bosh sahifa
+      </a>
+      <a href="/about" class="mm-link ">
+        <i data-lucide="user"></i> Men haqimda
+      </a>
+      <a href="/skills" class="mm-link ">
+        <i data-lucide="zap"></i> Ko'nikmalar
+      </a>
+      <a href="/projects" class="mm-link ">
+        <i data-lucide="folder-open"></i> Loyihalar
+      </a>
+      <a href="/contact" class="mm-link ">
+        <i data-lucide="mail"></i> Aloqa
+      </a>
+    </nav>
+    <div class="mm-footer">
+      <a href="https://t.me/kamolovsaidbek" target="_blank" class="mm-social">
+        <i data-lucide="send"></i>
+      </a>
+      <a href="https://github.com/saidbek18" target="_blank" class="mm-social">
+        <i data-lucide="github"></i>
+      </a>
+      <a href="mailto:kamolobsaid@gmail.com" class="mm-social">
+        <i data-lucide="mail"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="mm-overlay" id="mmOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- MAIN CONTENT -->
+<main id="main-content">
+
+<div class="contact-wrap">
+  <div class="sec-label">// 04 — CONTACT</div>
+  <h1 class="sec-title">Bog'lanish</h1>
+
+  <p class="contact-hero-text">
+    Loyiha bormi?<br>
+    <em>Yozin</em>, birga ishlaylik.
+  </p>
+
+  <div class="contact-grid">
+    <a class="cc fade-in" href="tel:+998947231523" style="--cc-color:var(--c1)">
+      <div class="cc-icon" style="color:var(--c1)">
+        <i data-lucide="phone"></i>
+      </div>
+      <div class="cc-info">
+        <div class="cc-type">TELEFON</div>
+        <div class="cc-val">+998 94 723 15 23</div>
+      </div>
+    </a>
+
+    <a class="cc fade-in" href="mailto:kamolobsaid@gmail.com" style="--cc-color:var(--c3);transition-delay:0.1s">
+      <div class="cc-icon" style="color:var(--c3)">
+        <i data-lucide="mail"></i>
+      </div>
+      <div class="cc-info">
+        <div class="cc-type">EMAIL</div>
+        <div class="cc-val">kamolobsaid@gmail.com</div>
+      </div>
+    </a>
+
+    <a class="cc fade-in" href="https://t.me/kamolovsaidbek" target="_blank" style="--cc-color:#0088cc;transition-delay:0.2s">
+      <div class="cc-icon" style="color:#0088cc">
+        <i data-lucide="send"></i>
+      </div>
+      <div class="cc-info">
+        <div class="cc-type">TELEGRAM</div>
+        <div class="cc-val">@kamolovsaidbek</div>
+      </div>
+    </a>
+
+    <a class="cc fade-in" href="https://github.com/saidbek18" target="_blank" style="--cc-color:var(--c2);transition-delay:0.3s">
+      <div class="cc-icon" style="color:var(--c2)">
+        <i data-lucide="github"></i>
+      </div>
+      <div class="cc-info">
+        <div class="cc-type">GITHUB</div>
+        <div class="cc-val">github.com/saidbek18</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="contact-cta fade-in" style="transition-delay:0.4s">
+    <h3>
+      Birgalikda <span style="color:var(--c1)">katta</span> narsalar yarataylik
+    </h3>
+    <p>Saytlar, botlar, dizayn — hammasi bir joyda</p>
+    <div class="cta-btns">
+      <a href="https://t.me/kamolovsaidbek" target="_blank" class="btn-main">
+        <i data-lucide="send" style="width:16px;height:16px"></i>
+        Telegram orqali yozing
+      </a>
+      <a href="mailto:kamolobsaid@gmail.com" class="btn-out">
+        <i data-lucide="mail" style="width:16px;height:16px"></i>
+        Email yuborish
+      </a>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> HTML &amp; CSS</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> JavaScript</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> React</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Python</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Flask</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Telegram Bot</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Figma</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Photoshop</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Illustrator</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Blender 3D</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Canva</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> GitHub</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> VS Code</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> SQLite</div>
+    
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> HTML &amp; CSS</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> JavaScript</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> React</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Python</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Flask</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Telegram Bot</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Figma</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Photoshop</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Illustrator</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Blender 3D</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Canva</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> GitHub</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> VS Code</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> SQLite</div>
+    
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-left">
+    <div class="foot-logo">SK<span>.</span>dev</div>
+    <div class="foot-copy">© 2024 Saidbek Kamolov</div>
+  </div>
+  <div class="foot-links">
+    <a href="https://github.com/saidbek18" target="_blank">
+      <i data-lucide="github"></i>
+    </a>
+    <a href="https://t.me/kamolovsaidbek" target="_blank">
+      <i data-lucide="send"></i>
+    </a>
+    <a href="mailto:kamolobsaid@gmail.com">
+      <i data-lucide="mail"></i>
+    </a>
+  </div>
+</footer>
+
+<!-- ======== MUSIC PLAYER ======== -->
+<div id="music-fab">
+  <div id="music-panel">
+    <div class="mp-header">
+      <span class="mp-header-label">NOW PLAYING</span>
+      <button class="mp-close" onclick="toggleMusicPanel()">
+        <i data-lucide="x" style="width:16px;height:16px"></i>
+      </button>
+    </div>
+
+    <!-- DISC + AVATAR -->
+    <div class="mp-disc-wrap">
+      <div class="mp-disc" id="mpDisc">
+        <!-- Vinyl grooves -->
+        <div class="vinyl-groove g1"></div>
+        <div class="vinyl-groove g2"></div>
+        <div class="vinyl-groove g3"></div>
+        <!-- Avatar in center -->
+        <div class="mp-disc-center">
+          <img src="/static/assets/images/avatar.jpg" alt="SK" id="mpDiscImg" onerror="this.style.display='none'">
+          <div class="mp-disc-fallback" id="mpDiscFallback">SK</div>
+        </div>
+      </div>
+      <div class="mp-track-info-main">
+        <div class="mp-title" id="mpTitle">Yuklanmoqda...</div>
+        <div class="mp-artist" id="mpArtist">—</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="mp-progress">
+      <div class="mp-bar" id="mpBar">
+        <div class="mp-bar-fill" id="mpFill"></div>
+      </div>
+      <div class="mp-times">
+        <span id="mpCur">0:00</span>
+        <span id="mpDur">0:00</span>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="mp-controls">
+      <button class="mp-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Shuffle">
+        <i data-lucide="shuffle" style="width:16px;height:16px"></i>
+      </button>
+      <button class="mp-btn" onclick="prevTrack()" title="Prev">
+        <i data-lucide="skip-back" style="width:18px;height:18px"></i>
+      </button>
+      <button class="mp-play" id="mpPlayBtn" onclick="togglePlay()">
+        <i data-lucide="play" id="playIcon" style="width:22px;height:22px"></i>
+      </button>
+      <button class="mp-btn" onclick="nextTrack()" title="Next">
+        <i data-lucide="skip-forward" style="width:18px;height:18px"></i>
+      </button>
+      <button class="mp-btn" id="repeatBtn" onclick="toggleRepeat()" title="Repeat">
+        <i data-lucide="repeat" style="width:16px;height:16px"></i>
+      </button>
+    </div>
+
+    <!-- VOLUME -->
+    <div class="mp-vol">
+      <i data-lucide="volume-1" style="width:14px;height:14px;color:var(--muted)"></i>
+      <input type="range" min="0" max="1" step="0.01" value="0.7" id="volSlider" oninput="setVolume(this.value)">
+      <i data-lucide="volume-2" style="width:14px;height:14px;color:var(--muted)"></i>
+    </div>
+
+    <!-- TRACK LIST -->
+    <div class="mp-tracks" id="mpTracks">
+      <div class="mp-tracks-loading">
+        <i data-lucide="loader" style="width:16px;height:16px;animation:spin 1s linear infinite"></i>
+        Musiqalar yuklanmoqda...
+      </div>
+    </div>
+  </div>
+
+  <!-- FAB BUTTON -->
+  <button id="music-toggle" onclick="toggleMusicPanel()" title="Musiqa Player">
+    <div class="vinyl-fab" id="vinylFab">
+      <div class="vinyl-fab-grooves"></div>
+      <div class="vinyl-fab-center">
+        <img src="/static/assets/images/avatar.jpg" alt="SK" onerror="this.style.display='none';document.querySelector('.vinyl-fab-initials').style.display='flex'">
+        <div class="vinyl-fab-initials">SK</div>
+      </div>
+    </div>
+  </button>
+</div>
+
+<script src="/static/js/base.js"></script>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>

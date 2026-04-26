@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Men haqimda — Saidbek Kamolov</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="/static/css/base.css">
+
+<style>
+.about-hero{
+  padding:80px 2rem 60px;
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1.2fr;
+  gap:4rem;align-items:start;
+}
+.ab-portrait{
+  width:100%;max-width:400px;
+  aspect-ratio:4/5;border-radius:24px;
+  overflow:hidden;border:1px solid var(--border);
+  position:relative;
+}
+.ab-portrait img{width:100%;height:100%;object-fit:cover}
+.ab-portrait-fallback{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,rgba(0,255,200,0.08),rgba(123,94,167,0.1));
+  display:flex;align-items:center;justify-content:center;
+}
+.ab-initials{font-size:130px;font-weight:800;color:var(--c1);opacity:0.12;letter-spacing:-10px;font-style:italic}
+.ab-badge-bar{
+  position:absolute;bottom:1.5rem;left:1rem;right:1rem;
+  background:rgba(6,7,13,0.95);border:1px solid var(--border);
+  border-radius:14px;padding:14px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.ab-badge-avatar{
+  width:36px;height:36px;border-radius:50%;
+  border:2px solid var(--c1);overflow:hidden;flex-shrink:0;
+}
+.ab-badge-avatar img{width:100%;height:100%;object-fit:cover}
+.ab-badge-name{font-size:13px;font-weight:700}
+.ab-badge-role{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+.ab-avail{
+  margin-left:auto;display:flex;align-items:center;gap:6px;
+  font-family:'DM Mono',monospace;font-size:11px;color:var(--c1);
+}
+
+.ab-info{display:flex;flex-direction:column;gap:8px;margin-top:1.5rem}
+.info-row{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 14px;border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:rgba(255,255,255,0.02);
+  transition:all 0.3s;
+}
+.info-row:hover{border-color:var(--border);background:rgba(0,255,200,0.04)}
+.info-row svg{width:14px;height:14px;color:var(--c1);flex-shrink:0}
+.info-key{color:var(--muted);min-width:80px;font-family:'DM Mono',monospace;font-size:11px}
+.info-val{color:var(--text);font-size:13px;font-weight:500}
+
+.ab-right{}
+.ab-big-text{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(22px,2.5vw,30px);
+  line-height:1.65;margin-bottom:2.5rem;
+}
+.ab-big-text em{color:var(--c1);font-style:normal}
+
+.wid-list{display:flex;flex-direction:column;gap:0}
+.wid-item{
+  display:flex;gap:1.25rem;
+  padding:1.25rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  align-items:flex-start;
+}
+.wid-num-box{
+  width:36px;height:36px;border-radius:10px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.wid-num-box svg{width:16px;height:16px;color:var(--c1)}
+.wid-info h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.wid-info p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* STORY SECTION */
+.story-sec{
+  max-width:1100px;margin:0 auto;
+  padding:0 2rem 80px;
+}
+.story-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1rem;margin-top:2rem;
+}
+.story-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:1.5rem;
+  transition:all 0.3s;
+}
+.story-card:hover{border-color:rgba(0,255,200,0.2);transform:translateY(-3px)}
+.story-year{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--c1);letter-spacing:1px;margin-bottom:0.75rem;
+}
+.story-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.story-text{font-size:13px;color:var(--muted);line-height:1.6}
+.story-icon{
+  width:40px;height:40px;border-radius:10px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1rem;
+}
+.story-icon svg{width:18px;height:18px;color:var(--c1)}
+
+@media(max-width:768px){
+  .about-hero{grid-template-columns:1fr}
+  .ab-portrait{max-width:100%}
+  .story-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .story-grid{grid-template-columns:1fr}
+}
+</style>
+
+</head>
+<body>
+
+<!-- CURSOR (desktop only) -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- BG ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="/static/assets/images/avatar.jpg" alt="SK" class="nav-avatar" onerror="this.style.display='none';document.querySelector('.nav-logo-text').style.display='block'">
+    <span class="nav-logo-text" style="display:none">SK</span>
+    <span class="nav-logo-name">Saidbek<span>.</span></span>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="active">
+      <i data-lucide="home" class="nav-icon"></i><span>Bosh sahifa</span>
+    </a></li>
+    <li><a href="/about" class="">
+      <i data-lucide="user" class="nav-icon"></i><span>Men haqimda</span>
+    </a></li>
+    <li><a href="/skills" class="">
+      <i data-lucide="zap" class="nav-icon"></i><span>Ko'nikmalar</span>
+    </a></li>
+    <li><a href="/projects" class="">
+      <i data-lucide="folder-open" class="nav-icon"></i><span>Loyihalar</span>
+    </a></li>
+    <li><a href="/contact" class="">
+      <i data-lucide="mail" class="nav-icon"></i><span>Aloqa</span>
+    </a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="nav-avail">
+      <div class="nav-avail-dot"></div>
+      <span>Ishlashga tayyor</span>
+    </div>
+    <a href="/contact" class="nav-hire">Bog'lanish</a>
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mm-inner">
+    <div class="mm-header">
+      <img src="/static/assets/images/avatar.jpg" alt="SK" class="mm-avatar" onerror="this.style.display='none'">
+      <div>
+        <div class="mm-name">Saidbek Kamolov</div>
+        <div class="mm-role">Frontend Dev & Designer</div>
+      </div>
+    </div>
+    <nav class="mm-nav">
+      <a href="/" class="mm-link active">
+        <i data-lucide="home"></i> Bosh sahifa
+      </a>
+      <a href="/about" class="mm-link ">
+        <i data-lucide="user"></i> Men haqimda
+      </a>
+      <a href="/skills" class="mm-link ">
+        <i data-lucide="zap"></i> Ko'nikmalar
+      </a>
+      <a href="/projects" class="mm-link ">
+        <i data-lucide="folder-open"></i> Loyihalar
+      </a>
+      <a href="/contact" class="mm-link ">
+        <i data-lucide="mail"></i> Aloqa
+      </a>
+    </nav>
+    <div class="mm-footer">
+      <a href="https://t.me/kamolovsaidbek" target="_blank" class="mm-social">
+        <i data-lucide="send"></i>
+      </a>
+      <a href="https://github.com/saidbek18" target="_blank" class="mm-social">
+        <i data-lucide="github"></i>
+      </a>
+      <a href="mailto:kamolobsaid@gmail.com" class="mm-social">
+        <i data-lucide="mail"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="mm-overlay" id="mmOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- MAIN CONTENT -->
+<main id="main-content">
+
+<section style="padding:80px 2rem 0;max-width:1100px;margin:0 auto">
+  <div class="sec-label">// 01 — ABOUT ME</div>
+  <h1 class="sec-title">Men haqimda</h1>
+</section>
+
+<div class="about-hero">
+  <div class="fade-in">
+    <div class="ab-portrait">
+      <img src="/static/assets/images/avatar.jpg" alt="Saidbek Kamolov"
+           onerror="this.parentElement.querySelector('.ab-portrait-fallback').style.display='flex';this.style.display='none'">
+      <div class="ab-portrait-fallback" style="display:none;position:absolute;inset:0">
+        <div class="ab-initials">SK</div>
+      </div>
+      <div class="ab-badge-bar">
+        <div class="ab-badge-avatar">
+          <img src="/static/assets/images/avatar.jpg" alt="SK"
+               onerror="this.parentElement.style.background='var(--c1)';this.style.display='none'">
+        </div>
+        <div>
+          <div class="ab-badge-name">Saidbek Kamolov</div>
+          <div class="ab-badge-role">Frontend Developer</div>
+        </div>
+        <div class="ab-avail">
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--c1);animation:pulse 2s infinite"></div>
+          Online
+        </div>
+      </div>
+    </div>
+
+    <div class="ab-info">
+      <div class="info-row">
+        <i data-lucide="user"></i>
+        <span class="info-key">Ism</span>
+        <span class="info-val">Saidbek Kamolov</span>
+      </div>
+      <div class="info-row">
+        <i data-lucide="cake"></i>
+        <span class="info-key">Yosh</span>
+        <span class="info-val">17 yosh</span>
+      </div>
+      <div class="info-row">
+        <i data-lucide="map-pin"></i>
+        <span class="info-key">Joylashuv</span>
+        <span class="info-val">Jondor, Buxoro</span>
+      </div>
+      <div class="info-row">
+        <i data-lucide="briefcase"></i>
+        <span class="info-key">Kasb</span>
+        <span class="info-val">Frontend Developer</span>
+      </div>
+      <div class="info-row">
+        <i data-lucide="languages"></i>
+        <span class="info-key">Tillar</span>
+        <span class="info-val">O'zbek, Ingliz</span>
+      </div>
+      <div class="info-row">
+        <i data-lucide="mail"></i>
+        <span class="info-key">Email</span>
+        <span class="info-val">kamolobsaid@gmail.com</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ab-right fade-in" style="transition-delay:0.2s">
+    <p class="ab-big-text">
+      Men — <em>Saidbek</em>, Buxoro viloyatidan 17 yoshli <em>frontend dasturchi</em> va <em>dizayner</em>. Saytlar yaratish va Telegram botlar ishlab chiqish mening asosiy yo'nalishim.
+      <br><br>
+      Har bir loyihaga <em>ijodiy yondashuv</em> bilan qarayman — faqat kod yozish emas, balki <em>muammo yechish</em> va <em>tajriba yaratish</em>ga intilamanah.
+    </p>
+
+    <div class="wid-list">
+      <div class="wid-item">
+        <div class="wid-num-box"><i data-lucide="monitor"></i></div>
+        <div class="wid-info">
+          <h4>Veb-sayt Dizayni</h4>
+          <p>HTML, CSS, JS va React yordamida zamonaviy, responsive va animatsiyali saytlar yarataman.</p>
+        </div>
+      </div>
+      <div class="wid-item">
+        <div class="wid-num-box"><i data-lucide="bot"></i></div>
+        <div class="wid-info">
+          <h4>Telegram Bot</h4>
+          <p>Python (aiogram/telebot) bilan to'liq funksional Telegram botlar ishlab chiqaman.</p>
+        </div>
+      </div>
+      <div class="wid-item">
+        <div class="wid-num-box"><i data-lucide="pen-tool"></i></div>
+        <div class="wid-info">
+          <h4>UI/UX & Grafik Dizayn</h4>
+          <p>Figma, Photoshop, Illustrator, Blender va Canva bilan professional dizaynlar yarataman.</p>
+        </div>
+      </div>
+      <div class="wid-item">
+        <div class="wid-num-box"><i data-lucide="box"></i></div>
+        <div class="wid-info">
+          <h4>3D Modellashtirish</h4>
+          <p>Blender yordamida 3D modellar va render ishlarini bajaraman.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="story-sec">
+  <div class="sec-label">// MENING YO'LLAGIM</div>
+  <h2 class="sec-title" style="margin-bottom:0">Qanday boshladim?</h2>
+  <div class="story-grid">
+    <div class="story-card fade-in">
+      <div class="story-icon"><i data-lucide="code-2"></i></div>
+      <div class="story-year">2022</div>
+      <div class="story-title">Birinchi qadamlar</div>
+      <div class="story-text">HTML va CSS bilan tanishib, birinchi web sahifamni yaratdim. Design dunyosiga kirishim shu yerdan boshlandi.</div>
+    </div>
+    <div class="story-card fade-in" style="transition-delay:0.1s">
+      <div class="story-icon"><i data-lucide="terminal"></i></div>
+      <div class="story-year">2023</div>
+      <div class="story-title">Python va Botlar</div>
+      <div class="story-text">Python o'rganib, birinchi Telegram botimni yaratdim. aiogram kutubxonasi bilan ishlash juda qiziqarli bo'ldi.</div>
+    </div>
+    <div class="story-card fade-in" style="transition-delay:0.2s">
+      <div class="story-icon"><i data-lucide="zap"></i></div>
+      <div class="story-year">2024</div>
+      <div class="story-title">Fullstack va React</div>
+      <div class="story-text">React va Flask bilan ishlashni boshladim. Professional darajadagi loyihalar ustida ishlayapman.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> HTML &amp; CSS</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> JavaScript</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> React</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Python</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Flask</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Telegram Bot</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Figma</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Photoshop</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Illustrator</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Blender 3D</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Canva</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> GitHub</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> VS Code</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> SQLite</div>
+    
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> HTML &amp; CSS</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> JavaScript</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> React</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Python</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Flask</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Telegram Bot</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Figma</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Photoshop</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Illustrator</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Blender 3D</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> Canva</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> GitHub</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> VS Code</div>
+    
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> SQLite</div>
+    
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-left">
+    <div class="foot-logo">SK<span>.</span>dev</div>
+    <div class="foot-copy">© 2024 Saidbek Kamolov</div>
+  </div>
+  <div class="foot-links">
+    <a href="https://github.com/saidbek18" target="_blank">
+      <i data-lucide="github"></i>
+    </a>
+    <a href="https://t.me/kamolovsaidbek" target="_blank">
+      <i data-lucide="send"></i>
+    </a>
+    <a href="mailto:kamolobsaid@gmail.com">
+      <i data-lucide="mail"></i>
+    </a>
+  </div>
+</footer>
+
+<!-- ======== MUSIC PLAYER ======== -->
+<div id="music-fab">
+  <div id="music-panel">
+    <div class="mp-header">
+      <span class="mp-header-label">NOW PLAYING</span>
+      <button class="mp-close" onclick="toggleMusicPanel()">
+        <i data-lucide="x" style="width:16px;height:16px"></i>
+      </button>
+    </div>
+
+    <!-- DISC + AVATAR -->
+    <div class="mp-disc-wrap">
+      <div class="mp-disc" id="mpDisc">
+        <!-- Vinyl grooves -->
+        <div class="vinyl-groove g1"></div>
+        <div class="vinyl-groove g2"></div>
+        <div class="vinyl-groove g3"></div>
+        <!-- Avatar in center -->
+        <div class="mp-disc-center">
+          <img src="/static/assets/images/avatar.jpg" alt="SK" id="mpDiscImg" onerror="this.style.display='none'">
+          <div class="mp-disc-fallback" id="mpDiscFallback">SK</div>
+        </div>
+      </div>
+      <div class="mp-track-info-main">
+        <div class="mp-title" id="mpTitle">Yuklanmoqda...</div>
+        <div class="mp-artist" id="mpArtist">—</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="mp-progress">
+      <div class="mp-bar" id="mpBar">
+        <div class="mp-bar-fill" id="mpFill"></div>
+      </div>
+      <div class="mp-times">
+        <span id="mpCur">0:00</span>
+        <span id="mpDur">0:00</span>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="mp-controls">
+      <button class="mp-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Shuffle">
+        <i data-lucide="shuffle" style="width:16px;height:16px"></i>
+      </button>
+      <button class="mp-btn" onclick="prevTrack()" title="Prev">
+        <i data-lucide="skip-back" style="width:18px;height:18px"></i>
+      </button>
+      <button class="mp-play" id="mpPlayBtn" onclick="togglePlay()">
+        <i data-lucide="play" id="playIcon" style="width:22px;height:22px"></i>
+      </button>
+      <button class="mp-btn" onclick="nextTrack()" title="Next">
+        <i data-lucide="skip-forward" style="width:18px;height:18px"></i>
+      </button>
+      <button class="mp-btn" id="repeatBtn" onclick="toggleRepeat()" title="Repeat">
+        <i data-lucide="repeat" style="width:16px;height:16px"></i>
+      </button>
+    </div>
+
+    <!-- VOLUME -->
+    <div class="mp-vol">
+      <i data-lucide="volume-1" style="width:14px;height:14px;color:var(--muted)"></i>
+      <input type="range" min="0" max="1" step="0.01" value="0.7" id="volSlider" oninput="setVolume(this.value)">
+      <i data-lucide="volume-2" style="width:14px;height:14px;color:var(--muted)"></i>
+    </div>
+
+    <!-- TRACK LIST -->
+    <div class="mp-tracks" id="mpTracks">
+      <div class="mp-tracks-loading">
+        <i data-lucide="loader" style="width:16px;height:16px;animation:spin 1s linear infinite"></i>
+        Musiqalar yuklanmoqda...
+      </div>
+    </div>
+  </div>
+
+  <!-- FAB BUTTON -->
+  <button id="music-toggle" onclick="toggleMusicPanel()" title="Musiqa Player">
+    <div class="vinyl-fab" id="vinylFab">
+      <div class="vinyl-fab-grooves"></div>
+      <div class="vinyl-fab-center">
+        <img src="/static/assets/images/avatar.jpg" alt="SK" onerror="this.style.display='none';document.querySelector('.vinyl-fab-initials').style.display='flex'">
+        <div class="vinyl-fab-initials">SK</div>
+      </div>
+    </div>
+  </button>
+</div>
+
+<script src="/static/js/base.js"></script>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>
