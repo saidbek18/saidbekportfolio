@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block title %}Aloqa — Saidbek Kamolov{% endblock %}
+
+{% block extra_css %}
+<style>
+.contact-wrap{
+  max-width:1100px;margin:0 auto;
+  padding:80px 2rem;
+}
+.contact-hero-text{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(32px,5vw,60px);
+  line-height:1.2;margin-bottom:3rem;
+  max-width:700px;
+}
+.contact-hero-text em{color:var(--c1);font-style:normal}
+
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1rem;margin-bottom:3rem;
+}
+.cc{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+  text-decoration:none;color:var(--text);
+  transition:all 0.35s;position:relative;overflow:hidden;
+}
+.cc::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--cc-color,var(--c1)),transparent);
+  opacity:0;transition:opacity 0.35s;
+}
+.cc:hover{
+  border-color:var(--cc-color,var(--c1));
+  transform:translateY(-4px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
+}
+.cc:hover::before{opacity:0.06}
+.cc-icon{
+  width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;flex-shrink:0;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  position:relative;z-index:1;
+}
+.cc-icon svg{width:24px;height:24px}
+.cc-info{position:relative;z-index:1}
+.cc-type{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted);margin-bottom:4px;letter-spacing:1px;
+}
+.cc-val{font-size:14px;font-weight:600;word-break:break-all}
+.cc.wide{grid-column:1 / -1}
+
+/* CTA BOX */
+.contact-cta{
+  text-align:center;padding:4rem 2rem;
+  border:1px solid var(--border);border-radius:28px;
+  background:linear-gradient(135deg,rgba(0,255,200,0.04),rgba(123,94,167,0.04));
+  position:relative;overflow:hidden;
+}
+.contact-cta::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(0,255,200,0.06),transparent 60%);
+}
+.contact-cta h3{
+  font-size:clamp(24px,3.5vw,44px);font-weight:800;
+  letter-spacing:-2px;margin-bottom:1rem;
+  position:relative;z-index:1;
+}
+.contact-cta p{color:var(--muted);font-size:15px;margin-bottom:2rem;position:relative;z-index:1}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+@media(max-width:600px){
+  .contact-grid{grid-template-columns:1fr}
+  .cc.wide{grid-column:1}
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contact-wrap">
+  <div class="sec-label">// 04 — CONTACT</div>
+  <h1 class="sec-title">Bog'lanish</h1>
+
+  <p class="contact-hero-text">
+    Loyiha bormi?<br>
+    <em>Yozin</em>, birga ishlaylik.
+  </p>
+
+  <div class="contact-grid">
+    <a class="cc fade-in" href="tel:+998947231523" style="--cc-color:var(--c1)">
+      <div class="cc-icon" style="color:var(--c1)">
+        <i data-lucide="phone"></i>
+      </div>
+      <div class="cc-info">
+        <div class="cc-type">TELEFON</div>
+        <div class="cc-val">+998 94 723 15 23</div>
+      </div>
+    </a>
+
+    <a class="cc fade-in" href="mailto:kamolobsaid@gmail.com" style="--cc-color:var(--c3);transition-delay:0.1s">
+      <div class="cc-icon" style="color:var(--c3)">
+        <i data-lucide="mail"></i>
+      </div>
+      <div class="cc-info">
+        <div class="cc-type">EMAIL</div>
+        <div class="cc-val">kamolobsaid@gmail.com</div>
+      </div>
+    </a>
+
+    <a class="cc fade-in" href="https://t.me/kamolovsaidbek" target="_blank" style="--cc-color:#0088cc;transition-delay:0.2s">
+      <div class="cc-icon" style="color:#0088cc">
+        <i data-lucide="send"></i>
+      </div>
+      <div class="cc-info">
+        <div class="cc-type">TELEGRAM</div>
+        <div class="cc-val">@kamolovsaidbek</div>
+      </div>
+    </a>
+
+    <a class="cc fade-in" href="https://github.com/saidbek18" target="_blank" style="--cc-color:var(--c2);transition-delay:0.3s">
+      <div class="cc-icon" style="color:var(--c2)">
+        <i data-lucide="github"></i>
+      </div>
+      <div class="cc-info">
+        <div class="cc-type">GITHUB</div>
+        <div class="cc-val">github.com/saidbek18</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="contact-cta fade-in" style="transition-delay:0.4s">
+    <h3>
+      Birgalikda <span style="color:var(--c1)">katta</span> narsalar yarataylik
+    </h3>
+    <p>Saytlar, botlar, dizayn — hammasi bir joyda</p>
+    <div class="cta-btns">
+      <a href="https://t.me/kamolovsaidbek" target="_blank" class="btn-main">
+        <i data-lucide="send" style="width:16px;height:16px"></i>
+        Telegram orqali yozing
+      </a>
+      <a href="mailto:kamolobsaid@gmail.com" class="btn-out">
+        <i data-lucide="mail" style="width:16px;height:16px"></i>
+        Email yuborish
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

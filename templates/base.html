@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Saidbek Kamolov — Dev & Designer{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="/static/css/base.css">
+{% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- CURSOR (desktop only) -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- BG ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="/static/assets/images/avatar.jpg" alt="SK" class="nav-avatar" onerror="this.style.display='none';document.querySelector('.nav-logo-text').style.display='block'">
+    <span class="nav-logo-text" style="display:none">SK</span>
+    <span class="nav-logo-name">Saidbek<span>.</span></span>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">
+      <i data-lucide="home" class="nav-icon"></i><span>Bosh sahifa</span>
+    </a></li>
+    <li><a href="/about" class="{% if request.path == '/about' %}active{% endif %}">
+      <i data-lucide="user" class="nav-icon"></i><span>Men haqimda</span>
+    </a></li>
+    <li><a href="/skills" class="{% if request.path == '/skills' %}active{% endif %}">
+      <i data-lucide="zap" class="nav-icon"></i><span>Ko'nikmalar</span>
+    </a></li>
+    <li><a href="/projects" class="{% if request.path == '/projects' %}active{% endif %}">
+      <i data-lucide="folder-open" class="nav-icon"></i><span>Loyihalar</span>
+    </a></li>
+    <li><a href="/contact" class="{% if request.path == '/contact' %}active{% endif %}">
+      <i data-lucide="mail" class="nav-icon"></i><span>Aloqa</span>
+    </a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="nav-avail">
+      <div class="nav-avail-dot"></div>
+      <span>Ishlashga tayyor</span>
+    </div>
+    <a href="/contact" class="nav-hire">Bog'lanish</a>
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mm-inner">
+    <div class="mm-header">
+      <img src="/static/assets/images/avatar.jpg" alt="SK" class="mm-avatar" onerror="this.style.display='none'">
+      <div>
+        <div class="mm-name">Saidbek Kamolov</div>
+        <div class="mm-role">Frontend Dev & Designer</div>
+      </div>
+    </div>
+    <nav class="mm-nav">
+      <a href="/" class="mm-link {% if request.path == '/' %}active{% endif %}">
+        <i data-lucide="home"></i> Bosh sahifa
+      </a>
+      <a href="/about" class="mm-link {% if request.path == '/about' %}active{% endif %}">
+        <i data-lucide="user"></i> Men haqimda
+      </a>
+      <a href="/skills" class="mm-link {% if request.path == '/skills' %}active{% endif %}">
+        <i data-lucide="zap"></i> Ko'nikmalar
+      </a>
+      <a href="/projects" class="mm-link {% if request.path == '/projects' %}active{% endif %}">
+        <i data-lucide="folder-open"></i> Loyihalar
+      </a>
+      <a href="/contact" class="mm-link {% if request.path == '/contact' %}active{% endif %}">
+        <i data-lucide="mail"></i> Aloqa
+      </a>
+    </nav>
+    <div class="mm-footer">
+      <a href="https://t.me/kamolovsaidbek" target="_blank" class="mm-social">
+        <i data-lucide="send"></i>
+      </a>
+      <a href="https://github.com/saidbek18" target="_blank" class="mm-social">
+        <i data-lucide="github"></i>
+      </a>
+      <a href="mailto:kamolobsaid@gmail.com" class="mm-social">
+        <i data-lucide="mail"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="mm-overlay" id="mmOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- MAIN CONTENT -->
+<main id="main-content">
+{% block content %}{% endblock %}
+</main>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    {% for tech in ['HTML & CSS','JavaScript','React','Python','Flask','Telegram Bot','Figma','Photoshop','Illustrator','Blender 3D','Canva','GitHub','VS Code','SQLite'] %}
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> {{ tech }}</div>
+    {% endfor %}
+    {% for tech in ['HTML & CSS','JavaScript','React','Python','Flask','Telegram Bot','Figma','Photoshop','Illustrator','Blender 3D','Canva','GitHub','VS Code','SQLite'] %}
+    <div class="marquee-item"><i data-lucide="hexagon" class="mq-icon"></i> {{ tech }}</div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-left">
+    <div class="foot-logo">SK<span>.</span>dev</div>
+    <div class="foot-copy">© 2024 Saidbek Kamolov</div>
+  </div>
+  <div class="foot-links">
+    <a href="https://github.com/saidbek18" target="_blank">
+      <i data-lucide="github"></i>
+    </a>
+    <a href="https://t.me/kamolovsaidbek" target="_blank">
+      <i data-lucide="send"></i>
+    </a>
+    <a href="mailto:kamolobsaid@gmail.com">
+      <i data-lucide="mail"></i>
+    </a>
+  </div>
+</footer>
+
+<!-- ======== MUSIC PLAYER ======== -->
+<div id="music-fab">
+  <div id="music-panel">
+    <div class="mp-header">
+      <span class="mp-header-label">NOW PLAYING</span>
+      <button class="mp-close" onclick="toggleMusicPanel()">
+        <i data-lucide="x" style="width:16px;height:16px"></i>
+      </button>
+    </div>
+
+    <!-- DISC + AVATAR -->
+    <div class="mp-disc-wrap">
+      <div class="mp-disc" id="mpDisc">
+        <!-- Vinyl grooves -->
+        <div class="vinyl-groove g1"></div>
+        <div class="vinyl-groove g2"></div>
+        <div class="vinyl-groove g3"></div>
+        <!-- Avatar in center -->
+        <div class="mp-disc-center">
+          <img src="/static/assets/images/avatar.jpg" alt="SK" id="mpDiscImg" onerror="this.style.display='none'">
+          <div class="mp-disc-fallback" id="mpDiscFallback">SK</div>
+        </div>
+      </div>
+      <div class="mp-track-info-main">
+        <div class="mp-title" id="mpTitle">Yuklanmoqda...</div>
+        <div class="mp-artist" id="mpArtist">—</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="mp-progress">
+      <div class="mp-bar" id="mpBar">
+        <div class="mp-bar-fill" id="mpFill"></div>
+      </div>
+      <div class="mp-times">
+        <span id="mpCur">0:00</span>
+        <span id="mpDur">0:00</span>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="mp-controls">
+      <button class="mp-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Shuffle">
+        <i data-lucide="shuffle" style="width:16px;height:16px"></i>
+      </button>
+      <button class="mp-btn" onclick="prevTrack()" title="Prev">
+        <i data-lucide="skip-back" style="width:18px;height:18px"></i>
+      </button>
+      <button class="mp-play" id="mpPlayBtn" onclick="togglePlay()">
+        <i data-lucide="play" id="playIcon" style="width:22px;height:22px"></i>
+      </button>
+      <button class="mp-btn" onclick="nextTrack()" title="Next">
+        <i data-lucide="skip-forward" style="width:18px;height:18px"></i>
+      </button>
+      <button class="mp-btn" id="repeatBtn" onclick="toggleRepeat()" title="Repeat">
+        <i data-lucide="repeat" style="width:16px;height:16px"></i>
+      </button>
+    </div>
+
+    <!-- VOLUME -->
+    <div class="mp-vol">
+      <i data-lucide="volume-1" style="width:14px;height:14px;color:var(--muted)"></i>
+      <input type="range" min="0" max="1" step="0.01" value="0.7" id="volSlider" oninput="setVolume(this.value)">
+      <i data-lucide="volume-2" style="width:14px;height:14px;color:var(--muted)"></i>
+    </div>
+
+    <!-- TRACK LIST -->
+    <div class="mp-tracks" id="mpTracks">
+      <div class="mp-tracks-loading">
+        <i data-lucide="loader" style="width:16px;height:16px;animation:spin 1s linear infinite"></i>
+        Musiqalar yuklanmoqda...
+      </div>
+    </div>
+  </div>
+
+  <!-- FAB BUTTON -->
+  <button id="music-toggle" onclick="toggleMusicPanel()" title="Musiqa Player">
+    <div class="vinyl-fab" id="vinylFab">
+      <div class="vinyl-fab-grooves"></div>
+      <div class="vinyl-fab-center">
+        <img src="/static/assets/images/avatar.jpg" alt="SK" onerror="this.style.display='none';document.querySelector('.vinyl-fab-initials').style.display='flex'">
+        <div class="vinyl-fab-initials">SK</div>
+      </div>
+    </div>
+  </button>
+</div>
+
+<script src="/static/js/base.js"></script>
+{% block extra_js %}{% endblock %}
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>
